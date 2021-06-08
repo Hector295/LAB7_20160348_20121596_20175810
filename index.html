@@ -1,16 +1,31 @@
 <!doctype html>
 <html lang="es">
   <head>
+    <link href="css/common.css" rel="stylesheet" type="text/css">
+    <link href="css/consulta.css" rel="stylesheet" type="text/css">
+    <link href="css/resultado.css" rel="stylesheet" type="text/css">
     <script src="js/vendor/jquery-3.6.0.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       $(document).ready(function ($) {
         $("#onpeimg").on('click', function () {
           if ($(this).attr("src") == "img/onpe1.jpg") {
             $(this).attr("src", "img/onpe2.svg")
-            $(this).addattr("style","width:50%; background-color: white")
+            $(this).attr("class", "img_onpe")
           } else if ($(this).attr("src") == "img/onpe2.svg") {
             $(this).attr("src", "img/onpe1.jpg")
-            $(this).attr("style","width:30%; background-color: white")
+            $(this).attr("class", "img_onpe")
+          }
+        });
+
+        $("form").submit(function (event) {
+          event.preventDefault();
+          var dni = $("#dni_input").val();
+          if (dni.length === 8) {
+            return;
+          } else {
+            $(".invalid-feedback").show(500).delay(1500).hide(500);
+            $("#dni_input").attr("class","dni_input_error");
+            setTimeout('$("#dni_input").removeAttr("class","dni_input_error");', 2500);
           }
         });
       });
@@ -21,10 +36,22 @@
   </head>
 
   <body style="background-color:#15265c">
-    <div class="container" style="text-align: center; margin-top: 50px">
-      <img id="onpeimg" src="img/onpe1.jpg" style="width:30%; background-color: white">
+    <div class="container-fluid">
+      <img class="img_onpe" id="onpeimg" src="img/onpe1.jpg">
     </div>
-    <h1 style="color:white; text-align:center; font-family: 'Arial'; font-size:40px; line-height:60px; margin-top:40px">Consulta tu lugar de votación y <br> si eres miembro de mesa</h1>
+    <h1 class="titulo">
+      Consulta tu lugar de votación y <br> si eres miembro de mesa</h1>
+    <hr>
+    <form action="index.html" method="POST">
+      <div class="form-group">
+        <input type="text" placeholder="Ingrese su DNI" id="dni_input" class="form-control">
+      </div>
+      <div class="invalid-feedback error_message" style="display:none">
+        El DNI ingresado no es válido
+      </div>
+      <button type="submit" class="btn btn-primary button">Consultar</button>
+    </form>
+
   </body>
 
 </html>
