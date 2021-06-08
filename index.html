@@ -17,11 +17,11 @@
           }
         });
 
-        $("form").submit(function (event) {
+        $("#formdni").submit(function (event) {
           event.preventDefault();
           var dni = $("#dni_input").val();
           if (dni.length === 8) {
-            return;
+            window.location.href="resultado.html";
           } else {
             $(".invalid-feedback").show(500).delay(1500).hide(500);
             $("#dni_input").attr("class","dni_input_error");
@@ -35,14 +35,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
-  <body style="background-color:#15265c">
+  <body>
     <div class="container-fluid">
       <img class="img_onpe" id="onpeimg" src="img/onpe1.jpg">
     </div>
     <h1 class="titulo">
-      Consulta tu lugar de votación y <br> si eres miembro de mesa</h1>
+      Consulta tu lugar de votación y<br>si eres miembro de mesa</h1>
     <hr>
-    <form action="index.html" method="POST">
+    <form action="index.html" method="POST" id="formdni">
       <div class="form-group">
         <input type="text" placeholder="Ingrese su DNI" id="dni_input" class="form-control">
       </div>
